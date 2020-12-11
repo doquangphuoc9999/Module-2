@@ -1,7 +1,7 @@
 import org.w3c.dom.Node;
 
 public class MyLinkedList {
-    private Node head;
+    public Node head;
     private int numNodes;
 
     public MyLinkedList(){}
