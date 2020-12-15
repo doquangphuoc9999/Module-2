@@ -1,14 +1,11 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class Product implements Comparable<Product>{
     private int id;
-    private String nameProduct;
+    private String name;
     private int price;
 
-    public Product(int id, String nameProduct, int price) {
+    public Product(int id, String name, int price) {
         this.id = id;
-        this.nameProduct = nameProduct;
+        this.name = name;
         this.price = price;
     }
 
@@ -20,12 +17,12 @@ public class Product implements Comparable<Product>{
         this.id = id;
     }
 
-    public String getNameProduct() {
-        return nameProduct;
+    public String getName() {
+        return name;
     }
 
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPrice() {
@@ -38,14 +35,14 @@ public class Product implements Comparable<Product>{
 
     @Override
     public String toString() {
-        return "Product " +
+        return "Product: " +
                 "id = " + id +
-                ", nameProduct = " + nameProduct +
+                ", name = " + name +
                 ", price=" + price;
     }
 
     @Override
     public int compareTo(Product o) {
-        return this.getNameProduct().compareTo(o.getNameProduct());
+        return this.price - o.getPrice();
     }
 }

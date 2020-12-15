@@ -1,51 +1,82 @@
-import java.util.List;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
+        CheckFunction checkFunction = new CheckFunction();
+
         Scanner scanner = new Scanner(System.in);
 
-        ProductManeger productManeger = new ProductManeger();
+        for (;;){
+            System.out.println("Menu");
+            System.out.println("1. Them san pham");
+            System.out.println("2. Sua thong tin theo san pham id");
+            System.out.println("3. Xoa san pham");
+            System.out.println("4. Hien thi san pham");
+            System.out.println("5. Tim kiem");
+            System.out.println("6. Sap xep gia tang dan");
+            System.out.println("========================================");
+            System.out.print("Enter option: ");
+            int option = scanner.nextInt();
+            scanner.nextLine();
 
-//        productManeger.addProduct(1,"coca",8000);
-//        productManeger.addProduct(2,"Milo",7000);
-//        productManeger.addProduct(3,"Cf",12000);
+            switch (option){
+                case 1:
+                    System.out.print("Nhap ten sp: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Nhap gia: ");
+                    int price = scanner.nextInt();
 
-        System.out.println("1: add Product");
-        System.out.println("2: Repair Product");
-        System.out.println("3: Print Product");
-        System.out.println("4: Search Product");
-        System.out.println("5: Sort Product ");
-        System.out.print("Enter option: ");
-        int option = scanner.nextInt();
+                    checkFunction.addProduct(name,price);
+                    break;
 
-        switch (option){
-            case 1:
-                add();
-                break;
-            case 3:
-                productManeger.print();
-                break;
-            case 7:
-                System.exit(0);
-                break;
+                case 2:
+                    System.out.println("Edit san pham");
+                    System.out.println("Nhap id can edit");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+//                    scanner.nextLine();
+                    System.out.println("Ten moi");
+                    String newName = scanner.nextLine();
+                    System.out.println("Gia moi");
+                    int newPrice = scanner.nextInt();
+                    scanner.nextLine();
+                    checkFunction.editProduct(id,newName,newPrice);
+                    break;
+
+                case 3:
+                    System.out.println("Xoa san pham");
+                    System.out.println("Nhap id ban muon xoa");
+                    int removeProduct = scanner.nextInt();
+                    scanner.nextLine();
+                    checkFunction.removeProduct(removeProduct);
+                    break;
+
+                case 4:
+                    checkFunction.print();
+                    break;
+
+                case 5:
+                    System.out.println("Tim kiem ten san pham");
+                    System.out.println("nhap ten san pham can tim kiem");
+                    String str = scanner.nextLine();
+                    checkFunction.findProduct(str);
+                    break;
+
+                case 6:
+                    System.out.println("San pham theo thu tu tang dan la: ");
+                    Collections.sort(checkFunction.arrayList);
+                    System.out.println(checkFunction.arrayList);
+                    break;
+
+                case 0:
+                    System.out.println("Thank.....");
+                    System.exit(0);
+                    break;
+
+
+            }
         }
-
-    }
-    public static void add(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter id: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("Enter new name Product: ");
-        String str = scanner.nextLine();
-
-        System.out.println("Enter price");
-        int price = scanner.nextInt();
-
-        ProductManeger productManeger = new ProductManeger();
-        productManeger.addProduct(id,str,price);
 
     }
 }
