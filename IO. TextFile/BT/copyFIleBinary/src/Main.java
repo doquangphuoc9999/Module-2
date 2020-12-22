@@ -1,47 +1,53 @@
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        try {
-            System.out.println("Enter file source: ");
-            String source = scanner.nextLine();
+        while (true){
+            try {
+                System.out.println("Enter file source");
+                String source = scanner.nextLine();
 
-            System.out.println("Enter file deserting: ");
-            String des = scanner.nextLine();
+                System.out.println("Enter file des: ");
+                String des = scanner.nextLine();
 
-            coppyFile(source,des);
-        } catch (Exception e) {
-            e.printStackTrace();
+                copyFileBinary(source,des);
+                break;
+            } catch (Exception e) {
+                System.out.println("Retype file source: ");
+            }
         }
     }
-    public static void coppyFile(String source, String des) throws Exception{
+    public static void copyFileBinary(String source, String des) throws Exception{
         FileInputStream fileInputStream = null;
         FileOutputStream fileOutputStream = null;
 
         try {
             File file = new File(source);
             if (!file.exists()){
-                System.err.println("File not exists");
+                System.err.println("File not found");
             }
             File file1 = new File(des);
+
             fileInputStream = new FileInputStream(file);
             fileOutputStream = new FileOutputStream(file1);
 
-            byte []buffer = new byte[1024];
+            byte []data = new byte[1024];
             int length;
-            while ((length = fileInputStream.read(buffer)) != -1){
-                fileOutputStream.write(buffer,0,length);
+
+            while ((length = fileInputStream.read(data)) != -1){
+                fileOutputStream.write(data,0,length);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
         }
         finally {
             fileInputStream.close();
             fileOutputStream.close();
         }
     }
-
 }

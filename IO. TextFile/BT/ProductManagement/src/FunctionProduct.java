@@ -3,41 +3,39 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FunctionProduct {
-   static ArrayList<Product> productArrayList;
-
-   static {
-       File file = new File("product.TXT");
-
-       try( FileInputStream fileInputStream = new FileInputStream(file);
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-            ObjectInputStream objectInputStream = new ObjectInputStream(bufferedInputStream)) {
-
-           Object object = objectInputStream.readObject();
-
-           if (objectInputStream == null){
-               productArrayList = new ArrayList<>();
-           }
-           else {
-               productArrayList = (ArrayList<Product>) object;
-           }
-
-       } catch (Exception e) {
-           productArrayList = new ArrayList<>(  );
-       }
-   }
-
-//  menu
-    public void menu(){
         Scanner scanner = new Scanner(System.in);
+       static ArrayList<Product> productArrayList;
 
-        System.out.println("==============Welcome=============");
-        System.out.println("--------------------------------------");
-        System.out.println("Menu: ");
-        System.out.println("1. Add Product");
-        System.out.println("2. Print Product");
-        System.out.println("3. Search Product");
-        System.out.println("========================================");
-        System.out.print("Enter option: ");
+        static {
+            File file = new File("product.TXT");
+            try ( FileInputStream fileInputStream = new FileInputStream(file);
+                  BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+                  ObjectInputStream objectInputStream = new ObjectInputStream(bufferedInputStream);){
+
+                Object object = objectInputStream.readObject();
+
+                if (object == null){
+                    productArrayList = new ArrayList<>();
+                }
+                else {
+                    productArrayList = (ArrayList<Product>)object;
+                }
+
+            } catch (Exception e) {
+                productArrayList = new ArrayList<>();
+            }
+        }
+
+//  Menu
+    public void menu(){
+        System.out.println("Menu");
+        System.out.println("===========================");
+        System.out.println("1. Thêm sản phẩm: ");
+        System.out.println("2. Hiển thị sản phẩm: ");
+        System.out.println("3. Tìm sản phẩm: ");
+        System.out.println("4. Exit");
+        System.out.println("============================");
+        System.out.println("Enter option: ");
         int option = scanner.nextInt();
         scanner.nextLine();
 
@@ -49,89 +47,82 @@ public class FunctionProduct {
                 print();
                 break;
             case 3:
-                searchProduct();
+                search();
                 break;
             case 4:
                 System.exit(0);
                 break;
         }
-
     }
 
-//  add product
+
+//  Thêm sp
 
     public void addProduct(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Add Product: ");
-//        System.out.println("Enter id: ");
-        int id = checkValidate("Enter id: ");
+        System.out.println("Mục thêm sản phẩm: ");
+        System.out.println("====================");
+//        System.out.println("Nhập id: ");
+        int id = checkValidate("Nhập id");
 //        scanner.nextLine();
-        System.out.print("Enter product name: ");
+        System.out.println("Nhập tên sản phẩm: ");
         String name = scanner.nextLine();
-        System.out.print("Enter produced: ");
-        String produced = scanner.nextLine();
-//        System.out.print("Enter price: ");
-        int price =checkValidate("Enter Price: ");
+        System.out.println("Nhập hãng sản xuất: ");
+        String nameProduced = scanner.nextLine();
+//        System.out.println("Nhập Giá: ");
+        int price = checkValidate("Nhập giá");
 
-        Product product = new Product(id,name,produced,price);
+        Product product = new Product(id,name,nameProduced,price);
         productArrayList.add(product);
         checkFile();
-
     }
 
-//  print list product
-
-    public void print(){
-        for (Product product : productArrayList){
-            System.out.println(product);
-        }
-    }
-
-
-//  search product
-
-    public void searchProduct(){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter name your want search: ");
-        String name = scanner.nextLine();
-
-        for (Product product : productArrayList){
-            if (name.equals(product.getNameProduct())){
+//    Hiển thị sản phẩm
+        public void print(){
+            for (Product product : productArrayList){
                 System.out.println(product);
             }
         }
-    }
 
-
-//  doc file va ghi vao file minh dang co
-
-    public void checkFile(){
-        ObjectOutputStream objectOutputStream = null;
-
-        try {
-            objectOutputStream = new ObjectOutputStream(new FileOutputStream("product.TXT"));
-            objectOutputStream.writeObject(productArrayList);
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found");;
-        } catch (IOException e) {
-            e.printStackTrace();
+//    tìm sản phẩm
+        public void search(){
+            System.out.println("Hàm tìm kiếm: ");
+            System.out.println("Nhập tên bạn muốn tìm kiếm: ");
+            String name1 = scanner.nextLine();
+            System.out.println("Hàm tìm kiếm: ");
+            for (Product product : productArrayList){
+                if (product.getNameProduct().equals(name1)){
+                    System.out.println(product);
+                }
+            }
         }
+
+
+//  thêm tên sản phâm vào file bằng nhị phân
+
+    public void checkFile() {
+       ObjectOutputStream objectOutputStream = null;
+
+       try {
+           objectOutputStream = new ObjectOutputStream(new FileOutputStream("product.TXT"));
+           objectOutputStream.writeObject(productArrayList);
+       } catch (FileNotFoundException e) {
+           e.printStackTrace();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
     }
 
 
-//  ktra dau vao
+//   ktra đầu vào
 
-    public int checkValidate(String massage){
-        System.out.println(massage);
-        Scanner scanner = new Scanner(System.in);
-
+    public int checkValidate(String message) {
+        System.out.println(message);
         try {
             int num = Integer.parseInt(scanner.nextLine().trim());
             return num;
         } catch (NumberFormatException e) {
-            System.out.println("must enter a number");
-            return checkValidate(massage);
+            System.out.println("Phải nhập là một số");
+            return checkValidate(message);
         }
     }
 }

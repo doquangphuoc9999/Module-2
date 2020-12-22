@@ -1,23 +1,28 @@
-import java.io.File;
+import java.io.*;
+import java.util.Arrays;
 
 public class Test {
     public static void main(String[] args) {
-        File file = new File("test.TxT");
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
 
-        File dir = new File("Book");
-        dir.mkdir();
+        try {
+            fileReader = new FileReader("readFIveCsv.TXT");
+            bufferedReader = new BufferedReader(fileReader);
 
-        if (dir.isDirectory()){
-            String []dirContents = dir.list();
-
-            for (int i = 0; i < dirContents.length; i++){
-                System.out.println(dirContents[i]);
+            String str;
+            while ((str = bufferedReader.readLine()) != null){
+                String st[] = str.split(",");
+                System.out.println(st[4] + st[5]);
             }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        System.out.println(dir.getAbsoluteFile());
-
-        
-        boolean isDeleted = file.delete();
     }
+
+
 }

@@ -1,27 +1,38 @@
 import java.io.*;
+import java.util.Scanner;
 
 public class CopyFileText {
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         try {
-            FileReader fileReader = new FileReader("input.TxT");
-            FileWriter fileWriter = new FileWriter("ouput.TxT");
+            System.out.println("Enter file source: ");
+            String source = scanner.nextLine();
 
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            System.out.println("Enter file des: ");
+            String des = scanner.nextLine();
 
-            String chep;
+            coppyFile(source,des);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void coppyFile(String source , String des) {
+        FileReader fr = null;
+        FileWriter fw = null;
 
-            while ((chep = bufferedReader.readLine()) != null){
-                bufferedWriter.write(chep);
+        try {
+            fr = new FileReader(source);
+            fw = new FileWriter(des);
+
+            int str;
+            while ((str = fr.read())!= -1){
+                fw.write(str);
             }
-            bufferedReader.close();
-            bufferedWriter.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
