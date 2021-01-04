@@ -40,6 +40,9 @@ public class FunctionProduct {
         scanner.nextLine();
 
         switch (option){
+            case 0:
+                remove();
+                break;
             case 1:
                 addProduct();
                 break;
@@ -110,6 +113,18 @@ public class FunctionProduct {
        } catch (IOException e) {
            e.printStackTrace();
        }
+    }
+
+//   remove product
+    public void remove(){
+        System.out.println("Nhập tên sp bạn muốn xóa");
+        String name = scanner.nextLine();
+
+        for (Product product : productArrayList){
+            if (name.equals(product.getNameProduct())){
+                productArrayList.remove(product);
+            }
+        }
     }
 
 
