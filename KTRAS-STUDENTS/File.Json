@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "ĐỖ QUANG PHƯỚC",
+    "age": "15-12-2001",
+    "gender": "Nam",
+    "score1": 9.99999999999999,
+    "score2": 9.9999999,
+    "score3": 9.999999999999,
+    "score4": -1.0,
+    "medium": 9.0,
+    "enterScore1": true,
+    "enterScore2": true,
+    "enterScore3": true,
+    "enterScore4": false
+  }
+]
